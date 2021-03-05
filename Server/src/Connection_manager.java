@@ -49,7 +49,7 @@ public class Connection_manager  extends Thread
 
         try
         {
-            this.user = new User(this.connection,this.receiver,this.transmitter);
+           user = new User(this.connection,this.receiver,this.transmitter);
         }
         catch(Exception ignored){}
 
@@ -58,7 +58,7 @@ public class Connection_manager  extends Thread
         {
             synchronized (users)
             {
-                this.users.add(user);
+                //this.users.add(user);
             }
         }
         catch(Exception err)

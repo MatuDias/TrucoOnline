@@ -1,4 +1,3 @@
 import java.io.Serializable;
 
-public class Warning implements Serializable, Cloneable {
-}
+public class Warning implements Serializable, Cloneable{}
