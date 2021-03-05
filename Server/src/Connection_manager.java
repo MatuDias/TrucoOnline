@@ -6,12 +6,13 @@ import java.util.ArrayList;
 
 public class Connection_manager  extends Thread
 {
-    private Socket connection;
-    private Round_manager round_manager;
+    private final Socket connection;
+    private final Round_manager round_manager;
     private User user;
-    private ArrayList<User> users;
+    private final ArrayList<User> users;
     private ObjectOutputStream transmitter;
     private ObjectInputStream receiver;
+    private boolean ended = false;
 
     public Connection_manager(Socket connection, ArrayList<User> users, Round_manager round_manager) throws Exception
     {
@@ -58,7 +59,7 @@ public class Connection_manager  extends Thread
         {
             synchronized (users)
             {
-                //this.users.add(user);
+                this.users.add(user);
             }
         }
         catch(Exception err)
@@ -83,14 +84,22 @@ public class Connection_manager  extends Thread
             System.err.println(e.getMessage());
         }
 
-        while (true)
+        while (!ended)
         {
             try
             {
-
+                if(round_manager.canIt())
+                {
+                    playersTurn();
+                }
             }
             catch (Exception e){return;}
         }
+
+    }
+
+    private void playersTurn()
+    {
 
     }
 

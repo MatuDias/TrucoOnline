@@ -6,9 +6,9 @@ public class Connection_accepter extends Thread
 
 
     private ServerSocket server;
-    private ArrayList<User> users;
+    private final ArrayList<User> users;
     private Round_manager round_manager;
-    private Boolean isStarted = false;
+    private Boolean hasStarted = false;
 
     public Connection_accepter(String door, ArrayList<User> users) throws Exception
     {
@@ -35,8 +35,8 @@ public class Connection_accepter extends Thread
 
         while(true)
         {
-            if(isStarted && users.size() == 1)
-                isStarted = false;
+            if(hasStarted && users.size() == 1)
+                hasStarted = false;
 
             Socket connection;
 
@@ -49,8 +49,52 @@ public class Connection_accepter extends Thread
                 continue;
             }
 
+            Connection_manager cManager;
+
+            try
+            {
 
 
+                cManager = new Connection_manager(connection, users, round_manager);
+
+                cManager.start(); // Adding 1 to users
+
+                synchronized (users)
+                {
+                    if(users.size() > 2)
+                    {
+                        users.get(users.size()-1).send(new WarningFull());
+                        users.remove(users.size()-1);
+                        connection.close();
+                        continue;
+                    }
+                }
+
+                /*  TODO Add to RoundManager this cManager
+                 *  In order to manage the rounds, the roundManager needs
+                 *  to have access to the connection manager so it could send
+                 *  the round permission
+                 */
+
+                synchronized (users)
+                {
+                    if(users.size() == 2 && !hasStarted)
+                    {
+                        hasStarted = true;
+
+                        for (User user: users)
+                        {
+                            user.send(new WarningStart());
+                        }
+
+                    }
+                }
+
+            }
+            catch(Exception e)
+            {
+                System.err.println(e.getMessage());
+            }
 
 
         }
