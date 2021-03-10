@@ -10,6 +10,7 @@ public class User
     private ObjectInputStream receiver;
     private ObjectOutputStream transmiter;
 
+    private Object object;
     private Warning nextWarning;
     private Semaphore mutualExclusion = new Semaphore(1,true);
 
@@ -40,7 +41,7 @@ public class User
         }
     }
 
-    public Warning look() throws Exception
+    public Warning peek() throws Exception
     {
         try {
             mutualExclusion.acquireUninterruptibly();
@@ -54,6 +55,24 @@ public class User
         }catch(Exception e)
         {
             throw new Exception("Erro look(): "+e.getMessage());
+        }
+    }
+
+    public Object receiveObject() throws Exception
+    {
+        try
+        {
+            if(object == null)
+                object =  receiver.readObject();
+
+            Object obj = object;
+            object = null;
+
+            return obj;
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Erro recepcao (send): " + e.getMessage());
         }
     }
 

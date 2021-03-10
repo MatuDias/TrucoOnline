@@ -20,6 +20,8 @@ public class Client
         User server = null;
         Warning_manager warningManager = null;
 
+        Hand hand = null;
+        Byte points = null;
 
         try
         {
@@ -46,7 +48,7 @@ public class Client
         {
             try
             {
-                warning = server.look();
+                warning = server.peek();
             }
             catch(Exception e)
             {
@@ -67,10 +69,73 @@ public class Client
 
         System.out.println("O jogo começou!!!");
 
+       /*
+        *   User first will WAIT for the server to grant he/she permission to start the turn
+        * then he/she will WAIT for the server to get their hand, WAIT to get the AxisCard and WAIT for the score
+        * After he/she gets all this information, everything will be displayed to the user.
+        *   Then the program will get what will the user do, there will be the option to play
+        * whatever card he/she have in hands, to say "TRUCO" to the other participant, to hide
+        * the card he/she will play or to exit the game.
+        *
+        * */
+
 
         while (true)
         {
-            //TODO
+            Card axisCard = null;
+            try
+            {
+                do
+                {
+                    warning = server.peek();
+                }
+                while (!(warning instanceof WarningRequestRound));
+                server.receive();
+
+
+                do
+                {
+                    warning = server.peek();
+                }
+                while(!(warning instanceof WarningHand));
+                hand = (Hand) server.receive();
+
+
+
+            }
+            catch(Exception error)
+            {
+                continue;
+            }
+
+            try
+            {
+                axisCard = (Card) server.receive();
+            }
+            catch(Exception ignored){}
+
+            try
+            {
+                /*
+                Object compare=null;
+                do
+                {
+                    compare = server.peek();
+                }
+                while (compare instanceof Warning);
+                points = (Byte) server.receiveObject();
+                */
+            }
+            catch(Exception ignored){}
+
+
+            System.out.println("Suas cartas: "+ hand);
+            System.out.println("Manilha: "+ axisCard);
+            System.out.println("Pontos: "+ points);
+
+
+
+
         }
 
 
