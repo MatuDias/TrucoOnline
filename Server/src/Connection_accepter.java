@@ -36,10 +36,23 @@ public class Connection_accepter extends Thread
         while(true)
         {
             if(hasStarted && users.size() == 1)
+            {
+                // One of the players exit the game mid-game
+
                 hasStarted = false;
+                synchronized (users)
+                {
+                    try
+                    {
+                        users.get(0).send(new WarningRestart());
+                    }
+                    catch(Exception ignored)
+                    {}
+                }
+                //TODO Reset everything up
+            }
 
             Socket connection;
-
             try
             {
                 connection = server.accept();
@@ -50,17 +63,18 @@ public class Connection_accepter extends Thread
             }
 
             Connection_manager cManager;
-
             try
             {
 
-
+                //cManager is one of the player.
+                // It's how the server will communicate to the user, it's through here
                 cManager = new Connection_manager(connection, users, round_manager);
-
-                cManager.start(); // Adding 1 to users
 
                 synchronized (users)
                 {
+                    cManager.start(); // Adding 1 to users
+                    System.out.println(users.size());
+
                     if(users.size() > 2)
                     {
                         users.get(users.size()-1).send(new WarningFull());
@@ -74,6 +88,12 @@ public class Connection_accepter extends Thread
                  *  In order to manage the rounds, the roundManager needs
                  *  to have access to the connection manager so it could send
                  *  the round permission
+
+
+                    synchronized (gerenciadoraDeRodada.getSupervisoras())
+                    {
+                        gerenciadoraDeRodada.addSupervisora(cManager);
+                    }
                  */
 
                 synchronized (users)
@@ -99,5 +119,8 @@ public class Connection_accepter extends Thread
 
         }
     }
+
+
+    //TODO Add all those mandatory methods
 
 }

@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class WarningRestart {
+public class WarningRestart extends Warning{
 }

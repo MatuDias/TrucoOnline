@@ -88,7 +88,7 @@ public class Connection_manager  extends Thread
         {
             try
             {
-                if(round_manager.canIt())
+                if(round_manager.canItGetATurn(user))
                 {
                     playersTurn();
                 }
@@ -100,7 +100,7 @@ public class Connection_manager  extends Thread
 
     private void playersTurn()
     {
-
+        //TODO What should the player do when he/she gets the turn
     }
 
 }
