@@ -14,9 +14,9 @@ public class Client
             return;
         }
 
-        Socket connection;
-        ObjectInputStream receiver;
-        ObjectOutputStream transmitter;
+        Socket connection = null;
+        ObjectInputStream receiver = null;
+        ObjectOutputStream transmitter = null;
         User server = null;
         Warning_manager warningManager = null;
 
@@ -117,7 +117,7 @@ public class Client
             try
             {
                 /*
-                Object compare=null;
+                Byte compare=null;
                 do
                 {
                     compare = server.peek();
@@ -129,11 +129,53 @@ public class Client
             catch(Exception ignored){}
 
 
-            System.out.println("Suas cartas: "+ hand);
-            System.out.println("Manilha: "+ axisCard);
-            System.out.println("Pontos: "+ points);
 
+            String option = "";
+            while(true)
+            {
+                System.out.println("Suas cartas: "+ hand);
+                System.out.println("Manilha: "+ axisCard);
+                System.out.println("Pontos: "+ points);
+                System.out.println("T. Pedir \"Truco\".");
+                System.out.println("E. Ocultar a próxima carta que jogar.");
+                System.out.println("Caso queira jogar uma carta, Escreva o nome inteiro da carta que deseja jogar.");
+                System.out.println("L. Sair da partida");
+                System.out.print("> ");
+                option = Teclado.getUmString().toUpperCase();
 
+                switch (option)
+                {
+                    case "T" -> {
+                                    //Case T
+                    }
+                    case "O" -> {
+                                    //Case O
+                    }
+                    case "L" -> {
+                        try
+                        {
+                            transmitter.close();
+                            receiver.close();
+                            connection.close();
+
+                        }catch (Exception ignored){}
+                        System.exit(0);
+                    }
+
+                    default -> {
+                        for(int i=0; i < hand.getHand().size(); i++)
+                        {
+                            if(option.equals(hand.getHand().get(i)))
+                            {
+                                //TODO Find a way to send the card to the server
+                            }
+                        }
+                                //Search the card on the hand, then send it to the server
+                                // if there is no card, send to user it was
+                                // an error and continue;
+                    }
+                }
+            }
 
 
         }

@@ -16,5 +16,9 @@ public class Round_manager
         this.users = users;
     }
 
-    public boolean canItGetATurn(User user){ return false;}
+    public boolean canItGetATurn(User user)
+    {
+        //TODO this method
+        return false;
+    }
 }

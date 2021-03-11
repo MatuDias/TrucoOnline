@@ -30,4 +30,9 @@ public class Deck
         return ret;
     }
 
+    public void resetDeck()
+    {
+        //deck.removeAll();
+    }
+
 }

@@ -12,6 +12,7 @@ public class Connection_manager  extends Thread
     private final ArrayList<User> users;
     private ObjectOutputStream transmitter;
     private ObjectInputStream receiver;
+    private Hand hand;
     private boolean ended = false;
 
     public Connection_manager(Socket connection, ArrayList<User> users, Round_manager round_manager) throws Exception
@@ -22,6 +23,7 @@ public class Connection_manager  extends Thread
         this.connection = connection;
         this.users = users;
         this.round_manager = round_manager;
+        //hand = new Hand();
 
     }
 
@@ -75,7 +77,7 @@ public class Connection_manager  extends Thread
 
         try
         {
-            do{}while(!(user.look() instanceof WarningStart));
+            do{}while(!(user.peek() instanceof WarningStart));
             user.receive();
 
         }

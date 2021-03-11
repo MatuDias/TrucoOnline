@@ -1,4 +1,4 @@
-public class Card
+public class Card extends Warning
 {
     private final char name;
     private final String symbol;

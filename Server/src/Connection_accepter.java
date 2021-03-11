@@ -9,6 +9,7 @@ public class Connection_accepter extends Thread
     private final ArrayList<User> users;
     private Round_manager round_manager;
     private Boolean hasStarted = false;
+    private Deck deck;
 
     public Connection_accepter(String door, ArrayList<User> users) throws Exception
     {
@@ -27,6 +28,7 @@ public class Connection_accepter extends Thread
         }
 
         this.users = users;
+        deck = new Deck();
 
     }
 
