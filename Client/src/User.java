@@ -28,7 +28,7 @@ public class User
         this.transmiter = transmiter;
     }
 
-    public void send(Warning warning) throws Exception
+    public void receive(Warning warning) throws Exception
     {
         try
         {
@@ -76,7 +76,7 @@ public class User
         }
     }
 
-    public Warning receive() throws Exception
+    public Warning send() throws Exception
     {
         try
         {

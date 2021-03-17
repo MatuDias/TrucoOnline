@@ -60,7 +60,7 @@ public class Client
         {
             //it might need to comunicate back to server
             //server.send(warning);
-            warning = server.receive();
+            warning = server.send();
         }
         catch (Exception e)
         {
@@ -90,7 +90,7 @@ public class Client
                     warning = server.peek();
                 }
                 while (!(warning instanceof WarningRequestRound));
-                server.receive();
+                server.send();
 
 
                 do
@@ -98,7 +98,7 @@ public class Client
                     warning = server.peek();
                 }
                 while(!(warning instanceof WarningHand));
-                hand = (Hand) server.receive();
+                hand = (Hand) server.send();
 
 
 
@@ -110,7 +110,7 @@ public class Client
 
             try
             {
-                axisCard = (Card) server.receive();
+                axisCard = (Card) server.send();
             }
             catch(Exception ignored){}
 

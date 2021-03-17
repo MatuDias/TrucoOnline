@@ -27,6 +27,14 @@ public class Card extends Warning
         }
     }
 
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public int getValue()
+    {
+        return value;
+    }
 
     @Override
     public String toString() {

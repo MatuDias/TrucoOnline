@@ -32,7 +32,7 @@ public class Deck
 
     public void resetDeck()
     {
-        //deck.removeAll();
+        deck.clear();
     }
 
 }
