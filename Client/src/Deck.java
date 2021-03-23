@@ -32,7 +32,46 @@ public class Deck
 
     public void resetDeck()
     {
+        if(deck.size() > 0)
+        {
+            clearDeck();
+        }
+
+        fillDeck();
+
+    }
+
+    private void clearDeck()
+    {
         deck.clear();
+    }
+
+    private void fillDeck()
+    {
+        for (int i = 0; i < CardsProperty.names.length; i++)
+        {
+            for (int j = 0; j < CardsProperty.symbols.length; j++)
+            {
+                try
+                {
+                    deck.add(new Card(CardsProperty.names[i], CardsProperty.symbols[j]));
+                }
+                catch (Exception ignored){}
+            }
+        }
+
+    }
+
+    @Override
+    public String toString()
+    {
+        String ret = "[";
+        for(Card card: deck)
+        {
+            ret += " "+ card;
+        }
+
+        return ret + " ]";
     }
 
 }

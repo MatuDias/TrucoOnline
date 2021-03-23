@@ -44,9 +44,10 @@ public class Hand extends Warning implements Cloneable
             {
                 switch (card.getSymbol())
                 {
-                    case "Espadas" -> {}
-                    case "Paus" -> {}
-                    case "" -> {}
+                    case "Ouros" -> card.setValue(10);
+                    case "Espadas" -> card.setValue(11);
+                    case "Copas" -> card.setValue(12);
+                    case "Paus" -> card.setValue(13);
                 }
             }
         }

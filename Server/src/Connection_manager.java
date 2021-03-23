@@ -23,7 +23,7 @@ public class Connection_manager  extends Thread
         this.connection = connection;
         this.users = users;
         this.round_manager = round_manager;
-        //hand = new Hand();
+        hand = new Hand();
 
     }
 
@@ -100,9 +100,18 @@ public class Connection_manager  extends Thread
 
     }
 
+
     private void playersTurn()
     {
         //TODO What should the player do when he/she gets the turn
     }
+
+    private void resetPlayer()
+    {
+        hand.resetHand();
+        //point.resetPoint();
+
+    }
+
 
 }

@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 
@@ -75,7 +76,6 @@ public class Connection_accepter extends Thread
                 synchronized (users)
                 {
                     cManager.start(); // Adding 1 to users
-                    System.out.println(users.size());
 
                     if(users.size() > 2)
                     {
@@ -119,6 +119,23 @@ public class Connection_accepter extends Thread
             }
 
 
+        }
+    }
+
+    private void resetEverything()
+    {
+        deck.resetDeck();
+        for(User player: users)
+        {
+            try
+            {
+                player.send(new WarningRestart());
+            }
+            catch (IOException err)
+            {
+                player.shutDown();
+            }
+            catch(Exception ignored){}
         }
     }
 

@@ -117,13 +117,12 @@ public class Client
             try
             {
                 /*
-                Byte compare=null;
                 do
                 {
                     compare = server.peek();
                 }
-                while (compare instanceof Warning);
-                points = (Byte) server.receiveObject();
+                while (compare instanceof Points);
+                points = (Byte) server.receive();
                 */
             }
             catch(Exception ignored){}
